@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 
-import menuItems from "./menuItems";
-import addOrder from "./addOrder";
+import menuItems from "./menuItemsReducer";
+import order from "./orderReducer";
+import date from "./dateReducer";
 
 export default combineReducers({
-  menuItems: menuItems,
-  addOrder: addOrder
+  menuItems,
+  order,
+  date
 });

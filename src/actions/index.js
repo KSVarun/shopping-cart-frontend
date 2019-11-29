@@ -5,13 +5,27 @@ export const fetchMenuItems = () => async dispatch => {
   dispatch({ type: "FETCH_MENUITEMS", payload: response.data });
 };
 
-export const addOrder = (itemName, itemPrice) => {
+export const addOrder = (id, itemPrice) => {
   return {
     type: "ADD_ORDER",
     payload: {
-      itemName,
-      itemPrice,
-      count: 1
+      id,
+      itemPrice
     }
+  };
+};
+
+export const removeOrder = id => {
+  return {
+    type: "REMOVE_ORDER",
+    payload: {
+      id
+    }
+  };
+};
+
+export const getCurrentDate = () => {
+  return {
+    type: "GET_DATE"
   };
 };

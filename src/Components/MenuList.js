@@ -1,6 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchMenuItems, addOrder } from "../actions";
+import {
+  fetchMenuItems,
+  addOrder,
+  getCurrentDate,
+  removeOrder
+} from "../actions";
 
 import CheckOutPage from "./CheckOutPage";
 import { Link } from "react-router-dom";
@@ -10,6 +15,7 @@ class MenuList extends React.Component {
 
   componentDidMount() {
     this.props.fetchMenuItems();
+    this.props.getCurrentDate();
 
     // const response = await getAllMenu();
     // this.setState({ menus: response.data });
@@ -151,12 +157,15 @@ class MenuList extends React.Component {
     // }
     //console.log(vl);
     //menu.map(menuItem => console.log(menuItem));
+
+    const orderCount = this.props.order.orderedItems[menu.id] || 0;
+
     return (
       <div key={menu.id} className="card">
         <div className="content">
           <div className="header">
             {menu.itemName.toUpperCase()}
-            <div className="floating ui grey label"> 0 </div>
+            <div className="floating ui grey label"> {orderCount} </div>
           </div>
           <div className="description">Price: {menu.price}</div>
         </div>
@@ -164,13 +173,13 @@ class MenuList extends React.Component {
         <div className="two ui buttons">
           <button
             className="ui left attached button"
-            onClick={this.props.addOrder(menu.itemName, menu.price)}
+            onClick={() => this.props.addOrder(menu.id, menu.price)}
           >
             Add
           </button>
           <button
             className="right attached ui button"
-            onClick={() => this.handleRemoveOrder(menu.itemName, menu.price)}
+            onClick={() => this.props.removeOrder(menu.id)}
           >
             Remove
           </button>
@@ -181,11 +190,22 @@ class MenuList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="section">
+        <div className="ui secondary pointing menu">
+          <div className="active item">Lunch</div>
+          <div className="right menu">
+            <div className="item">
+              <i className="calendar alternate outline icon" />
+              {this.props.date}
+            </div>
+            <button className="ui icon item">
+              Sort
+              <i className="filter icon" />
+            </button>
+          </div>
+        </div>
         <div className="ui cards">
-          {this.props.menuItems.map(menus =>
-            menus.map(menu => this.renderMenuItem(menu))
-          )}
+          {this.props.menuItems.map(menuItem => this.renderMenuItem(menuItem))}
         </div>
       </div>
     );
@@ -193,12 +213,12 @@ class MenuList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  // console.log(state);
+  console.log(state);
   // console.log(state.menuItems);
-  return { menuItems: state.menuItems };
+  return { menuItems: state.menuItems, date: state.date, order: state.order };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchMenuItems, addOrder }
+  { fetchMenuItems, addOrder, removeOrder, getCurrentDate }
 )(MenuList);
