@@ -2,7 +2,7 @@ import React from "react";
 import MenuList from "./MenuList";
 
 class MenuPage extends React.Component {
-  state = { menuList: [], date: "" };
+  state = { date: "" };
 
   componentDidMount = () => {
     var d = new Date();

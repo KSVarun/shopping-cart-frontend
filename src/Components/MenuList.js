@@ -164,7 +164,7 @@ class MenuList extends React.Component {
         <div className="two ui buttons">
           <button
             className="ui left attached button"
-            onClick={() => this.props.addOrder(menu.itemName, menu.price)}
+            onClick={this.props.addOrder(menu.itemName, menu.price)}
           >
             Add
           </button>
@@ -182,10 +182,11 @@ class MenuList extends React.Component {
   render() {
     return (
       <div>
-        <div className="ui cards" />
-        {this.props.menuItems.map(menus =>
-          menus.map(menu => this.renderMenuItem(menu))
-        )}
+        <div className="ui cards">
+          {this.props.menuItems.map(menus =>
+            menus.map(menu => this.renderMenuItem(menu))
+          )}
+        </div>
       </div>
     );
   }
