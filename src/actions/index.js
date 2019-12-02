@@ -15,11 +15,12 @@ export const addOrder = (id, itemPrice) => {
   };
 };
 
-export const removeOrder = id => {
+export const removeOrder = (id, itemPrice) => {
   return {
     type: "REMOVE_ORDER",
     payload: {
-      id
+      id,
+      itemPrice
     }
   };
 };

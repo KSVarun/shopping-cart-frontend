@@ -37,7 +37,7 @@ class MenuList extends React.Component {
           </button>
           <button
             className="right attached ui button"
-            onClick={() => this.props.removeOrder(menu.id)}
+            onClick={() => this.props.removeOrder(menu.id, menu.price)}
           >
             Remove
           </button>
