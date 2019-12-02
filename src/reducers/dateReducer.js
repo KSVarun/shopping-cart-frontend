@@ -15,10 +15,10 @@ export default (currentDate = "", action) => {
         "July",
         "Aug",
         "Sep",
+        "Oct",
         "Nov",
         "Dec"
       ];
-      // console.log(day, months[month]);
       return (currentDate = day + " " + months[month]);
     default:
       return currentDate;

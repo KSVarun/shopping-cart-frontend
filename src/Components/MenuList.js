@@ -7,157 +7,15 @@ import {
   removeOrder
 } from "../actions";
 
-import CheckOutPage from "./CheckOutPage";
 import { Link } from "react-router-dom";
 
 class MenuList extends React.Component {
-  // state = { menus: [], orders: [], menuItems: [] };
-
   componentDidMount() {
     this.props.fetchMenuItems();
     this.props.getCurrentDate();
-
-    // const response = await getAllMenu();
-    // this.setState({ menus: response.data });
-    // if (
-    //   !this.state.menuItems.includes(
-    //     this.state.menus.map(menu => menu.itemName)
-    //   )
-    // ) {
-    //   this.state.menus.map(menu => {
-    //     if (menu.itemName) {
-    //       this.setState({
-    //         menuItems: [...this.state.menuItems, menu.itemName]
-    //       });
-    //     }
-    //     return null;
-    //   });
-    // }
   }
 
-  // handleOrder = (item_name, item_price) => {
-  //   //adding first item
-
-  //   if (this.state.orders.length === 0) {
-  //     this.setState({
-  //       orders: [
-  //         ...this.state.orders,
-  //         {
-  //           itemName: item_name,
-  //           count: 1,
-  //           price: item_price
-  //         }
-  //       ]
-  //     });
-  //   } //updating order already present
-  //   else if (
-  //     this.state.orders
-  //       .map(order => {
-  //         return order.itemName;
-  //       })
-  //       .includes(item_name)
-  //   ) {
-  //     //   var ind = this.state.orders
-  //     //     .map(order => {
-  //     //       return order.itemName;
-  //     //     })
-  //     //     .indexOf(item_name);
-  //     var ind = this.state.orders.findIndex(
-  //       order => order.itemName === item_name
-  //     );
-  //     var prevCount = this.state.orders[ind].count;
-  //     var updateCount = prevCount + 1;
-  //     var prevPrice = this.state.orders[ind].price;
-  //     var updatePrice = updateCount * prevPrice;
-  //     const updateOrder = {
-  //       itemName: item_name,
-  //       count: updateCount,
-  //       price: updatePrice
-  //     };
-  //     this.setState(prevState => {
-  //       prevState.orders[ind] = updateOrder;
-  //       return {
-  //         orders: [...prevState.orders]
-  //       };
-  //     });
-  //   } //adding new order
-  //   else if (
-  //     !this.state.orders
-  //       .map(order => {
-  //         return order.itemName;
-  //       })
-  //       .includes(item_name)
-  //   ) {
-  //     this.setState({
-  //       orders: [
-  //         ...this.state.orders,
-  //         {
-  //           itemName: item_name,
-  //           count: 1,
-  //           price: item_price
-  //         }
-  //       ]
-  //     });
-  //   }
-  // };
-
-  // handleRemoveOrder = (item_name, item_price) => {
-  //   var val = this.state.orders
-  //     .map(order => {
-  //       return order.itemName;
-  //     })
-  //     .includes(item_name);
-  //   var orderCount = 0;
-  //   var orderPrice = 0;
-  //   if (val) {
-  //     var ind = this.state.orders.findIndex(
-  //       order => order.itemName === item_name
-  //     );
-  //     orderCount = this.state.orders[ind].count;
-  //     orderPrice = this.state.orders[ind].price;
-
-  //     if (orderCount !== 0) {
-  //       var updateOrderCount = orderCount - 1;
-  //       var updateOrderPrice = orderPrice - item_price;
-  //       const updateRemoveOrder = {
-  //         itemName: item_name,
-  //         count: updateOrderCount,
-  //         price: updateOrderPrice
-  //       };
-  //       this.setState(prevState => {
-  //         prevState.orders[ind] = updateRemoveOrder;
-  //         return {
-  //           orders: [...prevState.orders]
-  //         };
-  //       });
-  //     }
-  //   }
-  // };
-
-  // componentDidUpdate = () => {
-  //   // console.log("orderslist");
-  //   // console.log(this.state.orders);
-  //   // console.log("menu list= " + this.state.menuItems);
-  // };
   renderMenuItem = menu => {
-    // var tagValue = 0;
-    // if (this.state.orders.length === 0) {
-    //   tagValue = 0;
-    // }
-    // var vl = this.state.orders
-    //   .map(order => order.itemName === menu.itemName)
-    //   .toString();
-    // if (vl) {
-    //   var ind = this.state.orders.findIndex(
-    //     order => order.itemName === menu.itemName
-    //   );
-    //   if (ind !== -1) {
-    //     tagValue = this.state.orders[ind].count;
-    //   }
-    // }
-    //console.log(vl);
-    //menu.map(menuItem => console.log(menuItem));
-
     const orderCount = this.props.order.orderedItems[menu.id] || 0;
 
     return (
@@ -187,7 +45,30 @@ class MenuList extends React.Component {
       </div>
     );
   };
-
+  renderCheckoutHelper = () => {
+    // to find size Object.keys(this.props.order.orderedItems).length
+    if (this.props.order.checkOut === 1) {
+      return (
+        <Link to="/checkOut">
+          <div className="ui vertical animated right floated button" disabled>
+            <div className="hidden content">Checkout</div>
+            <div className="visible content">
+              <i className="shop icon" />
+            </div>
+          </div>
+        </Link>
+      );
+    } else {
+      return (
+        <div className="ui icon message">
+          <i className="inbox icon" />
+          <div className="content">
+            <div className="header">Choose item of your chioce</div>
+          </div>
+        </div>
+      );
+    }
+  };
   render() {
     return (
       <div className="section">
@@ -207,14 +88,14 @@ class MenuList extends React.Component {
         <div className="ui cards">
           {this.props.menuItems.map(menuItem => this.renderMenuItem(menuItem))}
         </div>
+        {this.renderCheckoutHelper()}
+        <div />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  console.log(state);
-  // console.log(state.menuItems);
   return { menuItems: state.menuItems, date: state.date, order: state.order };
 };
 
