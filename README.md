@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Screenshots
+## Menu items
+![](images/pic1.png)
+
+
+![](images/pic2.png)
+
+
 ## Available Scripts
 
 In the project directory, you can run:
