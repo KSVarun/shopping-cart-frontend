@@ -1,8 +1,14 @@
 import { getAllMenu } from "../API/MenuComponents";
 
+export const actionTypes = {
+  FETCHING_MENUT_ITEMS: "FETCHING_MENUT_ITEMS",
+  FETCHED_MENUITEMS: "FETCHED_MENUITEMS"
+};
+
 export const fetchMenuItems = () => async dispatch => {
+  dispatch({ type: actionTypes.FETCHING_MENUT_ITEMS });
   const response = await getAllMenu();
-  dispatch({ type: "FETCH_MENUITEMS", payload: response.data });
+  dispatch({ type: actionTypes.FETCHED_MENUITEMS, payload: response.data });
 };
 
 export const addOrder = (id, itemPrice) => {

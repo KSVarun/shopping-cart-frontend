@@ -79,24 +79,20 @@ class MenuList extends React.Component {
             <i className="calendar alternate outline icon" />
             {this.props.date}
           </div>
-          <button className="ui icon item">
-            Sort
-            <i className="filter icon" />
-          </button>
         </div>
       </div>
     );
   };
 
   render() {
-    if (this.props.menuItems.content === undefined) {
+    if (this.props.menuItems.loading) {
       return "Loading...";
     } else {
       return (
         <div className="section">
           {this.renderHeader()}
           <div className="ui cards">
-            {this.props.menuItems.content.map(menuItem =>
+            {this.props.menuItems.data.content.map(menuItem =>
               this.renderMenuItem(menuItem)
             )}
           </div>

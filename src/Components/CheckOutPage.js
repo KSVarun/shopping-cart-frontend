@@ -19,47 +19,43 @@ class ChekOutPage extends React.Component {
       </div>
     );
   };
-  renderMenuItem(menu) {
-    debugger;
-    let count = this.props.order.orderedItems[menu.id];
-
-    if (count) {
-      return (
-        <tr key={menu.id}>
-          <td>
-            <h3>{menu.itemName.toUpperCase()}</h3>
-          </td>
-          <td>
-            <h3>
-              {menu.price} * {this.props.order.orderedItems[menu.id]}=
-              {this.props.order.price[menu.id]}
-            </h3>
-          </td>
-          <td>
-            <div className="ui buttons">
-              <button
-                className="ui button"
-                onClick={() => this.props.addOrder(menu.id, menu.price)}
-              >
-                Add
-              </button>
-              <button
-                className="ui button"
-                onClick={() => this.props.removeOrder(menu.id, menu.price)}
-              >
-                Remove
-              </button>
-            </div>
-          </td>
-        </tr>
-      );
-    }
+  renderOrderedItem(menuItem, count) {
+    return (
+      <tr key={menuItem.id}>
+        <td>
+          <h3>{menuItem.itemName.toUpperCase()}</h3>
+        </td>
+        <td>
+          <h3>
+            {menuItem.price} * {count}={this.props.order.price[menuItem.id]}
+          </h3>
+        </td>
+        <td>
+          <div className="ui buttons">
+            <button
+              className="ui button"
+              onClick={() => this.props.addOrder(menuItem.id, menuItem.price)}
+            >
+              Add
+            </button>
+            <button
+              className="ui button"
+              onClick={() =>
+                this.props.removeOrder(menuItem.id, menuItem.price)
+              }
+            >
+              Remove
+            </button>
+          </div>
+        </td>
+      </tr>
+    );
   }
   render() {
     var totalPrice = this.props.order.totalPrice;
-    var content = this.props.menuItems.content;
+    var content = this.props.menuItems.loading;
 
-    if (content === undefined || totalPrice === 0) {
+    if (content || totalPrice === 0) {
       return <div>{this.renderEmptyCart()}</div>;
     } else {
       return (
@@ -73,30 +69,27 @@ class ChekOutPage extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {content.map(this.renderMenuItem)}
-              <tr>
-                <td>
-                  <h3>TOTAL</h3>
-                </td>
-
-                <td>
-                  <h3>{totalPrice}</h3>
-                </td>
-                <td>
-                  <button className="ui primary button">Confirm Payment</button>
-                </td>
-              </tr>
+              {Object.keys(this.props.order.orderedItems).map(orderedItemId => {
+                return this.renderOrderedItem(
+                  this.props.menuItems.itemById[orderedItemId],
+                  this.props.order.orderedItems[orderedItemId]
+                );
+              })}
             </tbody>
+            <tfoot>
+              <tr>
+                <th>
+                  <h3>TOTAL</h3>
+                </th>
+                <th>
+                  <h3>{totalPrice}</h3>
+                </th>
+                <th>
+                  <button className="ui primary button">Confirm Payment</button>
+                </th>
+              </tr>
+            </tfoot>
           </table>
-
-          <Link to="/">
-            <div className="ui vertical animated right floated button">
-              <div className="hidden content">Menu</div>
-              <div className="visible content">
-                <i className="shop icon" />
-              </div>
-            </div>
-          </Link>
         </div>
       );
     }
