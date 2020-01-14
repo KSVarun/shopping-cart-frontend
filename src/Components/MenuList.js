@@ -51,7 +51,7 @@ class MenuList extends React.Component {
       return (
         <Link to="/checkOut">
           <div className="ui vertical animated right floated button" disabled>
-            <div className="hidden content">Checkout</div>
+            <div className="hidden content">Cart</div>
             <div className="visible content">
               <i className="shop icon" />
             </div>
@@ -69,37 +69,53 @@ class MenuList extends React.Component {
       );
     }
   };
-  render() {
+
+  renderHeader = () => {
     return (
-      <div className="section">
-        <div className="ui secondary pointing menu">
-          <div className="active item">Lunch</div>
-          <div className="right menu">
-            <div className="item">
-              <i className="calendar alternate outline icon" />
-              {this.props.date}
-            </div>
-            <button className="ui icon item">
-              Sort
-              <i className="filter icon" />
-            </button>
+      <div className="ui secondary pointing menu">
+        <div className="active item">Lunch</div>
+        <div className="right menu">
+          <div className="item">
+            <i className="calendar alternate outline icon" />
+            {this.props.date}
           </div>
+          <button className="ui icon item">
+            Sort
+            <i className="filter icon" />
+          </button>
         </div>
-        <div className="ui cards">
-          {this.props.menuItems.map(menuItem => this.renderMenuItem(menuItem))}
-        </div>
-        {this.renderCheckoutHelper()}
-        <div />
       </div>
     );
+  };
+
+  render() {
+    if (this.props.menuItems.content === undefined) {
+      return "Loading...";
+    } else {
+      return (
+        <div className="section">
+          {this.renderHeader()}
+          <div className="ui cards">
+            {this.props.menuItems.content.map(menuItem =>
+              this.renderMenuItem(menuItem)
+            )}
+          </div>
+          {this.renderCheckoutHelper()}
+          <div />
+        </div>
+      );
+    }
   }
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return { menuItems: state.menuItems, date: state.date, order: state.order };
 };
 
-export default connect(
-  mapStateToProps,
-  { fetchMenuItems, addOrder, removeOrder, getCurrentDate }
-)(MenuList);
+export default connect(mapStateToProps, {
+  fetchMenuItems,
+  addOrder,
+  removeOrder,
+  getCurrentDate
+})(MenuList);
