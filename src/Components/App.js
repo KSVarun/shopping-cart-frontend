@@ -4,6 +4,7 @@ import MenuList from "./MenuList";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import ChekOutPage from "./CheckOutPage";
 import Navbar from "./Navbar";
+import PaymentPage from "./PaymentPage";
 
 class App extends React.Component {
   render() {
@@ -11,6 +12,7 @@ class App extends React.Component {
       <div style={{ margin: "30px" }}>
         <Router>
           <Navbar />
+          <Route path="/payment" exact component={PaymentPage} />
           <Route path="/" exact render={props => <MenuList {...props} />} />
           <Route
             path="/checkOut"

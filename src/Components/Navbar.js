@@ -9,7 +9,7 @@ class Navbar extends React.Component {
     let activeStepCart = "step";
     if (this.props.menuActive) {
       activeStepMenu = "active step";
-    } else {
+    } else if (this.props.cartActive) {
       activeStepCart = "active step";
     }
     if (cartLength) {

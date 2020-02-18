@@ -80,7 +80,9 @@ class ChekOutPage extends React.Component {
                   <h3>{totalPrice}</h3>
                 </th>
                 <th>
-                  <button className="ui primary button">Confirm Payment</button>
+                  <Link to="/payment" className="ui primary button">
+                    Confirm Payment
+                  </Link>
                 </th>
               </tr>
             </tfoot>

@@ -28,8 +28,10 @@ export default (state = INITIAL_STATE, action) => {
     case "GET_PATH":
       if (action.payload === "/") {
         return { ...state, menuActive: true, cartActive: false };
-      } else {
+      } else if (action.payload === "/checkOut") {
         return { ...state, menuActive: false, cartActive: true };
+      } else {
+        return { ...state, menuActive: false, cartActive: false };
       }
 
     default:
