@@ -16,18 +16,10 @@ class Navbar extends React.Component {
       return (
         <div className="ui secondary top attached menu">
           <div className="ui steps">
-            <Link
-              to="/"
-              className={activeStepMenu}
-              active={this.props.menuActive}
-            >
+            <Link to="/" className={activeStepMenu}>
               <span className="title">Menu</span>
             </Link>
-            <Link
-              to="/checkOut"
-              className={activeStepCart}
-              active={this.props.cartActive}
-            >
+            <Link to="/checkOut" className={activeStepCart}>
               <span className="title">Cart</span>
             </Link>
           </div>
@@ -37,11 +29,7 @@ class Navbar extends React.Component {
       return (
         <div className="ui secondary top attached menu">
           <div className="ui steps">
-            <Link
-              to="/"
-              className={activeStepMenu}
-              active={this.props.menuActive}
-            >
+            <Link to="/" className={activeStepMenu}>
               <span className="title">Menu</span>
             </Link>
           </div>
@@ -50,7 +38,6 @@ class Navbar extends React.Component {
     }
   };
   render() {
-    console.log(this.props);
     return this.handleCartStep();
   }
 }

@@ -9,16 +9,8 @@ class ChekOutPage extends React.Component {
   }
   renderEmptyCart = () => {
     return (
-      <div>
-        <h3>It's empty here</h3>
-        <Link to="/">
-          <div className="ui vertical animated right floated button">
-            <div className="hidden content">Menu</div>
-            <div className="visible content">
-              <i className="shop icon" />
-            </div>
-          </div>
-        </Link>
+      <div className="emptyPage">
+        <h3>It's empty here, select few items from menu</h3>
       </div>
     );
   };

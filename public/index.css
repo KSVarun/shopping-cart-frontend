@@ -1,0 +1,14 @@
+.ui.secondary.top.attached.menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+  margin-left: auto;
+}
+
+.emptyPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
