@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { addOrder, removeOrder } from "../actions";
+import { addOrder, removeOrder, updatePath } from "../actions";
 
 class ChekOutPage extends React.Component {
+  componentDidMount() {
+    this.props.updatePath(this.props.match.url);
+  }
   renderEmptyCart = () => {
     return (
       <div>
@@ -97,8 +100,9 @@ class ChekOutPage extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return { menuItems: state.menuItems, order: state.order };
 };
 
-export default connect(mapStateToProps, { addOrder, removeOrder })(ChekOutPage);
+export default connect(mapStateToProps, { addOrder, removeOrder, updatePath })(
+  ChekOutPage
+);

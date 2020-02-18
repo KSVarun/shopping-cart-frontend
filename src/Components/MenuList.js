@@ -4,15 +4,20 @@ import {
   fetchMenuItems,
   addOrder,
   getCurrentDate,
-  removeOrder
+  removeOrder,
+  updatePath
 } from "../actions";
 
 import { Link } from "react-router-dom";
 
 class MenuList extends React.Component {
   componentDidMount() {
-    this.props.fetchMenuItems();
-    this.props.getCurrentDate();
+    let length = Object.keys(this.props.menuItems.data).length;
+    if (length === 0) {
+      this.props.fetchMenuItems();
+      this.props.getCurrentDate();
+    }
+    this.props.updatePath(this.props.match.url);
   }
 
   renderMenuItem = menu => {
@@ -92,7 +97,7 @@ class MenuList extends React.Component {
         <div className="section">
           {this.renderHeader()}
           <div className="ui cards">
-            {this.props.menuItems.data.content.map(menuItem =>
+            {this.props.menuItems.data.map(menuItem =>
               this.renderMenuItem(menuItem)
             )}
           </div>
@@ -105,7 +110,6 @@ class MenuList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return { menuItems: state.menuItems, date: state.date, order: state.order };
 };
 
@@ -113,5 +117,6 @@ export default connect(mapStateToProps, {
   fetchMenuItems,
   addOrder,
   removeOrder,
-  getCurrentDate
+  getCurrentDate,
+  updatePath
 })(MenuList);

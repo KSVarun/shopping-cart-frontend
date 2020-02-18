@@ -1,21 +1,66 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class Navbar extends React.Component {
-  render() {
-    console.log("nav");
-    console.log(this.props);
-    return (
-      <div className="ui secondary top attached menu">
-        <div className="ui steps">
-          <div className="step">Buffet</div>
-          <Link to="/" className="step">
-            Menu
-          </Link>
+  handleCartStep = () => {
+    let cartLength = Object.keys(this.props.orderedItems).length;
+    let activeStepMenu = "step";
+    let activeStepCart = "step";
+    if (this.props.menuActive) {
+      activeStepMenu = "active step";
+    } else {
+      activeStepCart = "active step";
+    }
+    if (cartLength) {
+      return (
+        <div className="ui secondary top attached menu">
+          <div className="ui steps">
+            <Link
+              to="/"
+              className={activeStepMenu}
+              active={this.props.menuActive}
+            >
+              <span className="title">Menu</span>
+            </Link>
+            <Link
+              to="/checkOut"
+              className={activeStepCart}
+              active={this.props.cartActive}
+            >
+              <span className="title">Cart</span>
+            </Link>
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="ui secondary top attached menu">
+          <div className="ui steps">
+            <Link
+              to="/"
+              className={activeStepMenu}
+              active={this.props.menuActive}
+            >
+              <span className="title">Menu</span>
+            </Link>
+          </div>
+        </div>
+      );
+    }
+  };
+  render() {
+    console.log(this.props);
+    return this.handleCartStep();
   }
 }
 
-export default Navbar;
+const mapStateToProps = state => {
+  return {
+    menuActive: state.menuItems.menuActive,
+    cartActive: state.menuItems.cartActive,
+    orderedItems: state.order.orderedItems
+  };
+};
+
+export default connect(mapStateToProps, {})(Navbar);

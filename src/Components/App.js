@@ -11,8 +11,12 @@ class App extends React.Component {
       <div style={{ margin: "30px" }}>
         <Router>
           <Navbar />
-          <Route path="/" exact component={MenuList} />
-          <Route path="/checkOut" component={ChekOutPage} />
+          <Route path="/" exact render={props => <MenuList {...props} />} />
+          <Route
+            path="/checkOut"
+            exact
+            render={props => <ChekOutPage {...props} />}
+          />
         </Router>
       </div>
     );
