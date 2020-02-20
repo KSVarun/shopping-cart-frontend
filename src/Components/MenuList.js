@@ -4,8 +4,7 @@ import {
   fetchMenuItems,
   addOrder,
   getCurrentDate,
-  removeOrder,
-  updatePath
+  removeOrder
 } from "../actions";
 
 import { Link } from "react-router-dom";
@@ -17,7 +16,6 @@ class MenuList extends React.Component {
       this.props.fetchMenuItems();
       this.props.getCurrentDate();
     }
-    this.props.updatePath(this.props.match.url);
   }
 
   renderMenuItem = menu => {
@@ -35,13 +33,13 @@ class MenuList extends React.Component {
 
         <div className="two ui buttons">
           <button
-            className="ui left attached button"
+            className="ui left attached button "
             onClick={() => this.props.addOrder(menu.id, menu.price)}
           >
             Add
           </button>
           <button
-            className="right attached ui button"
+            className="ui right attached button"
             onClick={() => this.props.removeOrder(menu.id, menu.price)}
           >
             Remove
@@ -117,6 +115,5 @@ export default connect(mapStateToProps, {
   fetchMenuItems,
   addOrder,
   removeOrder,
-  getCurrentDate,
-  updatePath
+  getCurrentDate
 })(MenuList);

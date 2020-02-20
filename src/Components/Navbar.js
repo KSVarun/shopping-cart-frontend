@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Navbar extends React.Component {
@@ -7,9 +7,9 @@ class Navbar extends React.Component {
     let cartLength = Object.keys(this.props.orderedItems).length;
     let activeStepMenu = "step";
     let activeStepCart = "step";
-    if (this.props.menuActive) {
+    if (this.props.location.pathname === "/") {
       activeStepMenu = "active step";
-    } else if (this.props.cartActive) {
+    } else if (this.props.location.pathname === "/checkOut") {
       activeStepCart = "active step";
     }
     if (cartLength) {
@@ -38,16 +38,15 @@ class Navbar extends React.Component {
     }
   };
   render() {
+    console.log(this.props);
     return this.handleCartStep();
   }
 }
 
 const mapStateToProps = state => {
   return {
-    menuActive: state.menuItems.menuActive,
-    cartActive: state.menuItems.cartActive,
     orderedItems: state.order.orderedItems
   };
 };
 
-export default connect(mapStateToProps, {})(Navbar);
+export default connect(mapStateToProps, {})(withRouter(Navbar));

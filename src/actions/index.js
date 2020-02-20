@@ -93,10 +93,3 @@ export const getCurrentDate = () => {
     type: "GET_DATE"
   };
 };
-
-export const updatePath = path => {
-  return {
-    type: "GET_PATH",
-    payload: path
-  };
-};
