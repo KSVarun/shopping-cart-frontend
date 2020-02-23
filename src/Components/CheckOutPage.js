@@ -44,6 +44,7 @@ class ChekOutPage extends React.Component {
     );
   }
   render() {
+    // console.log(this.props);
     var totalPrice = this.props.order.totalPrice;
     var content = this.props.menuItems.loading;
 
@@ -84,6 +85,9 @@ class ChekOutPage extends React.Component {
               </tr>
             </tfoot>
           </table>
+          {/* <button onClick={() => this.props.history.push("/")}>
+            Go to Menu
+          </button> */}
         </div>
       );
     }

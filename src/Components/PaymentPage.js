@@ -6,6 +6,7 @@ import React from "react";
 
 class PaymentPage extends React.Component {
   render() {
+    // console.log(this.props);
     return (
       <div className="emptyPage">
         <h3>Payment method will be added soon</h3>
