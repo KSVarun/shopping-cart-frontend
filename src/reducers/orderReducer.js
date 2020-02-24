@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   totalPrice: 0
 };
 export default function orderReducer(state = INITIAL_STATE, action) {
+  //state is required to be passed as prop to produce call back
   return produce(state, draft => {
     switch (action.type) {
       case "ADD_ORDER": {
