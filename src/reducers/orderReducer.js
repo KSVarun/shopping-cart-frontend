@@ -1,10 +1,18 @@
 import produce from "immer";
 
 const INITIAL_STATE = {
-  orderedItems: {},
-  checkOut: 0,
-  price: {},
-  totalPrice: 0
+  orderedItems: localStorage.getItem("cartItems")
+    ? JSON.parse(localStorage.getItem("cartItems"))
+    : {},
+  checkOut: localStorage.getItem("checkoutPageStatus")
+    ? JSON.parse(localStorage.getItem("checkoutPageStatus"))
+    : 0,
+  price: localStorage.getItem("price")
+    ? JSON.parse(localStorage.getItem("price"))
+    : {},
+  totalPrice: localStorage.getItem("totalPrice")
+    ? JSON.parse(localStorage.getItem("totalPrice"))
+    : 0
 };
 export default function orderReducer(state = INITIAL_STATE, action) {
   //state is required to be passed as prop to produce call back
@@ -42,7 +50,16 @@ export default function orderReducer(state = INITIAL_STATE, action) {
         }
         break;
       }
-
+      case "UPDATE_LOCALSTORAGE": {
+        localStorage.setItem("cartItems", JSON.stringify(draft.orderedItems));
+        localStorage.setItem(
+          "checkoutPageStatus",
+          JSON.stringify(draft.checkOut)
+        );
+        localStorage.setItem("price", JSON.stringify(draft.price));
+        localStorage.setItem("totalPrice", JSON.stringify(draft.totalPrice));
+        break;
+      }
       default:
         break;
     }

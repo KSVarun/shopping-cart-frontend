@@ -49,7 +49,8 @@ class ChekOutPage extends React.Component {
     var content = this.props.menuItems.loading;
 
     if (content || totalPrice === 0) {
-      return <div>{this.renderEmptyCart()}</div>;
+      this.props.history.push("/");
+      return null;
     } else {
       return (
         <div className="ui container" style={{ marginTop: "10px" }}>

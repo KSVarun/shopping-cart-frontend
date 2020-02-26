@@ -1,12 +1,7 @@
 import React from "react";
 import MenuList from "./MenuList";
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ChekOutPage from "./CheckOutPage";
 import Navbar from "./Navbar";
 import PaymentPage from "./PaymentPage";
@@ -18,10 +13,10 @@ class App extends React.Component {
         <Router>
           <Navbar />
           <Switch>
-            <Route path="/checkOut" exact component={ChekOutPage} />
-            <Route path="/payment" exact component={PaymentPage} />
+            <Route path="/checkOut" component={ChekOutPage} />
+            <Route path="/payment" component={PaymentPage} />
             <Route path="/" component={MenuList} />
-            <Route component={MenuList} />
+            {/* <Route component={MenuList} /> */}
             {/* <Route>
               <Redirect to="/" component={MenuList} />
             </Route> */}
