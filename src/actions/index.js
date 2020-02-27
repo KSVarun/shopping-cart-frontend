@@ -68,23 +68,25 @@ export const fetchMenuItems = () => async dispatch => {
   dispatch({ type: actionTypes.FETCHED_MENUITEMS, payload: response });
 };
 
-export const addOrder = (id, itemPrice) => dispatch => {
+export const addOrder = (id, itemPrice, itemName) => dispatch => {
   dispatch({
     type: "ADD_ORDER",
     payload: {
       id,
-      itemPrice
+      itemPrice,
+      itemName
     }
   });
   dispatch({ type: "UPDATE_LOCALSTORAGE" });
 };
 
-export const removeOrder = (id, itemPrice) => dispatch => {
+export const removeOrder = (id, itemPrice, itemName) => dispatch => {
   dispatch({
     type: "REMOVE_ORDER",
     payload: {
       id,
-      itemPrice
+      itemPrice,
+      itemName
     }
   });
   dispatch({ type: "UPDATE_LOCALSTORAGE" });

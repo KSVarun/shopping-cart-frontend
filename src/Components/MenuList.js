@@ -19,7 +19,9 @@ class MenuList extends React.Component {
   }
 
   renderMenuItem = menu => {
-    const orderCount = this.props.order.orderedItems[menu.id] || 0;
+    const orderCount = this.props.order.orderedItems[menu.id]
+      ? this.props.order.orderedItems[menu.id].count
+      : 0;
 
     return (
       <div key={menu.id} className="card">
@@ -34,13 +36,17 @@ class MenuList extends React.Component {
         <div className="two ui buttons">
           <button
             className="ui left attached button "
-            onClick={() => this.props.addOrder(menu.id, menu.price)}
+            onClick={() =>
+              this.props.addOrder(menu.id, menu.price, menu.itemName)
+            }
           >
             Add
           </button>
           <button
             className="ui right attached button"
-            onClick={() => this.props.removeOrder(menu.id, menu.price)}
+            onClick={() =>
+              this.props.removeOrder(menu.id, menu.price, menu.itemName)
+            }
           >
             Remove
           </button>

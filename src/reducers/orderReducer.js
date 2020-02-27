@@ -16,16 +16,23 @@ const INITIAL_STATE = {
 };
 export default function orderReducer(state = INITIAL_STATE, action) {
   //state is required to be passed as prop to produce call back
+
   return produce(state, draft => {
     switch (action.type) {
       case "ADD_ORDER": {
+        console.log(action.payload);
         const id = action.payload.id;
         //Initialize to zero 0
         if (!draft.orderedItems[id]) {
-          draft.orderedItems[id] = 0;
+          draft.orderedItems[id] = {
+            id,
+            name: action.payload.itemName,
+            price: action.payload.itemPrice,
+            count: "0"
+          };
           draft.price[id] = 0;
         }
-        draft.orderedItems[id]++;
+        draft.orderedItems[id].count++;
         draft.checkOut = 1;
         draft.price[id] += parseInt(action.payload.itemPrice);
         draft.totalPrice += parseInt(action.payload.itemPrice);
@@ -34,12 +41,12 @@ export default function orderReducer(state = INITIAL_STATE, action) {
       case "REMOVE_ORDER": {
         const id = action.payload.id;
 
-        if (draft.orderedItems[id] > 0) {
-          draft.orderedItems[id]--;
+        if (draft.orderedItems[id].count > 0) {
+          draft.orderedItems[id].count--;
           draft.price[id] -= parseInt(action.payload.itemPrice);
           draft.totalPrice -= parseInt(action.payload.itemPrice);
         }
-        if (draft.orderedItems[id] === 0) {
+        if (draft.orderedItems[id].count === 0) {
           delete draft.orderedItems[id];
           delete draft.price[id];
         }

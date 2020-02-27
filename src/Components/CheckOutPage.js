@@ -11,29 +11,40 @@ class ChekOutPage extends React.Component {
       </div>
     );
   };
-  renderOrderedItem(menuItem, count) {
+  renderOrderedItem(orderedItem) {
     return (
-      <tr key={menuItem.id}>
+      <tr key={orderedItem.id}>
         <td>
-          <h3>{menuItem.itemName.toUpperCase()}</h3>
+          <h3>{orderedItem.name.toUpperCase()}</h3>
         </td>
         <td>
           <h3>
-            {menuItem.price} * {count}={this.props.order.price[menuItem.id]}
+            {orderedItem.price} * {orderedItem.count}=
+            {this.props.order.price[orderedItem.id]}
           </h3>
         </td>
         <td>
           <div className="ui buttons">
             <button
               className="ui button"
-              onClick={() => this.props.addOrder(menuItem.id, menuItem.price)}
+              onClick={() =>
+                this.props.addOrder(
+                  orderedItem.id,
+                  orderedItem.price,
+                  orderedItem.name
+                )
+              }
             >
               Add
             </button>
             <button
               className="ui button"
               onClick={() =>
-                this.props.removeOrder(menuItem.id, menuItem.price)
+                this.props.removeOrder(
+                  orderedItem.id,
+                  orderedItem.price,
+                  orderedItem.name
+                )
               }
             >
               Remove
@@ -46,11 +57,9 @@ class ChekOutPage extends React.Component {
   render() {
     // console.log(this.props);
     var totalPrice = this.props.order.totalPrice;
-    var content = this.props.menuItems.loading;
 
-    if (content || totalPrice === 0) {
-      this.props.history.push("/");
-      return null;
+    if (totalPrice === 0) {
+      return this.renderEmptyCart();
     } else {
       return (
         <div className="ui container" style={{ marginTop: "10px" }}>
@@ -65,7 +74,6 @@ class ChekOutPage extends React.Component {
             <tbody>
               {Object.keys(this.props.order.orderedItems).map(orderedItemId => {
                 return this.renderOrderedItem(
-                  this.props.menuItems.itemById[orderedItemId],
                   this.props.order.orderedItems[orderedItemId]
                 );
               })}
