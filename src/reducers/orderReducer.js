@@ -41,14 +41,17 @@ export default function orderReducer(state = INITIAL_STATE, action) {
       case "REMOVE_ORDER": {
         const id = action.payload.id;
 
-        if (draft.orderedItems[id].count > 0) {
-          draft.orderedItems[id].count--;
-          draft.price[id] -= parseInt(action.payload.itemPrice);
-          draft.totalPrice -= parseInt(action.payload.itemPrice);
-        }
-        if (draft.orderedItems[id].count === 0) {
-          delete draft.orderedItems[id];
-          delete draft.price[id];
+        if (draft.orderedItems[id]) {
+          if (draft.orderedItems[id].count > 0) {
+            draft.orderedItems[id].count--;
+            draft.price[id] -= parseInt(action.payload.itemPrice);
+            draft.totalPrice -= parseInt(action.payload.itemPrice);
+          }
+
+          if (draft.orderedItems[id].count === 0) {
+            delete draft.orderedItems[id];
+            delete draft.price[id];
+          }
         }
         //get the length of the orderedItems object
         var len = Object.keys(draft.orderedItems).length;
