@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 class MenuList extends React.Component {
   componentDidMount() {
-    let length = Object.keys(this.props.menuItems.data).length;
+    let length = Object.keys(this.props.menuItems.itemById).length;
     if (length === 0) {
       this.props.fetchMenuItems();
       this.props.getCurrentDate();
@@ -94,6 +94,7 @@ class MenuList extends React.Component {
   };
 
   render() {
+    console.log(this.props.menuItems);
     if (this.props.menuItems.loading) {
       return "Loading...";
     } else {
@@ -101,8 +102,8 @@ class MenuList extends React.Component {
         <div className="section">
           {this.renderHeader()}
           <div className="ui cards">
-            {this.props.menuItems.data.map(menuItem =>
-              this.renderMenuItem(menuItem)
+            {Object.keys(this.props.menuItems.itemById).map(menuItemKey =>
+              this.renderMenuItem(this.props.menuItems.itemById[menuItemKey])
             )}
           </div>
           {this.renderCheckoutHelper()}

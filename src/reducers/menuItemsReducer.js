@@ -2,7 +2,7 @@ import { actionTypes } from "../actions";
 
 const INITIAL_STATE = {
   loading: true,
-  data: {},
+
   itemById: {}
 };
 
@@ -18,7 +18,7 @@ export default (state = INITIAL_STATE, action) => {
 
       return {
         ...state,
-        data: action.payload,
+
         loading: false,
         itemById
       };
