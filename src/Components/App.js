@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ChekOutPage from "./CheckOutPage";
 import Navbar from "./Navbar";
 import PaymentPage from "./PaymentPage";
+import FormTest from "./FormTest";
 
 class App extends React.Component {
   render() {
@@ -15,6 +16,7 @@ class App extends React.Component {
           <Switch>
             <Route path="/checkOut" component={ChekOutPage} />
             <Route path="/payment" component={PaymentPage} />
+            <Route path="/formTest" component={FormTest} />
             <Route path="/" component={MenuList} />
             {/* <Route component={MenuList} /> */}
             {/* <Route>
