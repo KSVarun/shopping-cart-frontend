@@ -9,6 +9,7 @@ import {
 
 import { Link } from "react-router-dom";
 
+import "./MenuList.css";
 class MenuList extends React.Component {
   componentDidMount() {
     let length = Object.keys(this.props.menuItems.itemById).length;
@@ -26,6 +27,10 @@ class MenuList extends React.Component {
     return (
       <div key={menu.id} className="card">
         <div className="content">
+          <div className="test">
+            <button>Add</button>
+            <button>Remove</button>
+          </div>
           <div className="header">
             {menu.itemName.toUpperCase()}
             <div className="floating ui grey label"> {orderCount} </div>

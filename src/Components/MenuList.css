@@ -1,0 +1,11 @@
+.test {
+  display: none;
+}
+
+.card:hover .test {
+  display: inline;
+}
+
+.card:hover .content {
+  background-color: black;
+}
